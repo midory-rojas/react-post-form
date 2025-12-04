@@ -1,6 +1,7 @@
 
 import { useState } from 'react'
 import './App.css'
+import Card from './components/card';
 
 
 const initialFormData = {
@@ -13,6 +14,7 @@ const initialFormData = {
 function App() {
 
   const [formData, setFormData] = useState(initialFormData);
+  const [posts, setPosts] = useState([]);
 
   function updateFormData(event) {
     const key = event.target.name;
@@ -21,6 +23,13 @@ function App() {
       [key]: event.target.value
     };
     setFormData(newObject);
+  }
+
+  function aggiungiPost(event) {
+    event.preventDefault();
+    setPosts((current) => [...current, formData]);
+    setFormData(initialFormData);
+
   }
 
   return (
@@ -34,7 +43,7 @@ function App() {
           <div className='row justify-content-between'>
             <div className='row'>
               <div className='col-10 mb-5'>
-                <form className='row'>
+                <form onSubmit={aggiungiPost} className='row'>
                   <div className='mb-2'>
                     {/* Nome Autore del Post --- imput testo */}
                     <label htmlFor='nomeAutore'>Nome dell'autore</label>
@@ -78,7 +87,7 @@ function App() {
                       type="radio"
                       value="pubblico"
                       checked={formData.tipo === "pubblico"}
-                      onChange={updateFormData}/>
+                      onChange={updateFormData} />
                     <label htmlFor='bozza'>Bozza</label>
                     <input
                       name="tipo"
@@ -86,24 +95,24 @@ function App() {
                       type="radio"
                       value="bozza"
                       checked={formData.tipo === "bozza"}
-                      onChange={updateFormData}/>
+                      onChange={updateFormData} />
                   </div>
-                   <div className='col-12 mb-2'>
-                  <button type="submit" className='btn btn-success'>Aggiunge</button>
+                  <div className='col-12 mb-2'>
+                    <button type="submit" className='btn btn-success'>Aggiunge</button>
                   </div>
                 </form>
               </div>
             </div>
           </div>
           <div className='col-8'>
-            <div className='card'>
-              <div className='card-header'>{formData.titolo} {formData.name}</div>
-              <div className='card-body'>{formData.testo}</div>
-            </div>
+            {posts.map((post, index) => (
+              <div key={index}>
+                <Card autore={post} />
+              </div>
+            ))}
           </div>
         </div>
       </main >
-
     </>
   )
 }
