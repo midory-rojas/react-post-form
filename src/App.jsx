@@ -7,7 +7,7 @@ const initialFormData = {
   name: "",
   titolo: "",
   testo: "",
-  checkbox: "",
+  tipo: "",
 }
 
 function App() {
@@ -25,17 +25,17 @@ function App() {
 
   return (
     <>
-      <header>
+      <header className='text-center py-4 text-secondary-emphasis'>
         <h1>BLOG POST</h1>
       </header>
       <main>
         <div className='container'>
-          <h2>Aggiungi un nuovo post</h2>
+          <h2 className='text-secondary-emphasis py-2'>Aggiungi un nuovo post</h2>
           <div className='row justify-content-between'>
             <div className='row'>
-              <div className='col-12 col-8 mb-5'>
+              <div className='col-10 mb-5'>
                 <form className='row'>
-                  <div className='col-6 mb-2'>
+                  <div className='mb-2'>
                     {/* Nome Autore del Post --- imput testo */}
                     <label htmlFor='nomeAutore'>Nome dell'autore</label>
                     <input
@@ -47,7 +47,7 @@ function App() {
                       onChange={updateFormData} />
                   </div>
                   {/* Titolo del Post --- imput testo */}
-                  <div className='col-6 mb-2'>
+                  <div className='col-12 mb-2'>
                     <label htmlFor='Titolo'>Titolo del post</label>
                     <input
                       name="titolo"
@@ -69,30 +69,33 @@ function App() {
                       onChange={updateFormData} />
                   </div>
 
-                  {/* Checkbox per vedere si il post e pubblico  o bozza --- imput testo*/}
+                  {/* Radio imput per vedere si il post e pubblico  o bozza --- imput testo*/}
                   <div className='col-12 mb-2'>
                     <label htmlFor='pubblico'>Pubblico</label>
                     <input
-                      name="checkbox"
+                      name="tipo"
                       id="pubblico"
                       type="radio"
                       value="pubblico"
-                      checked={formData.checkbox === "pubblico"}
+                      checked={formData.tipo === "pubblico"}
                       onChange={updateFormData}/>
                     <label htmlFor='bozza'>Bozza</label>
                     <input
-                      name="checkbox"
+                      name="tipo"
                       id="bozza"
                       type="radio"
                       value="bozza"
-                      checked={formData.checkbox === "bozza"}
+                      checked={formData.tipo === "bozza"}
                       onChange={updateFormData}/>
+                  </div>
+                   <div className='col-12 mb-2'>
+                  <button type="submit" className='btn btn-success'>Aggiunge</button>
                   </div>
                 </form>
               </div>
             </div>
           </div>
-          <div className='col-12'>
+          <div className='col-8'>
             <div className='card'>
               <div className='card-header'>{formData.titolo} {formData.name}</div>
               <div className='card-body'>{formData.testo}</div>
